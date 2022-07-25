@@ -5,7 +5,7 @@
   "main": "src/mod.js",
   "license": "MIT",
   "author": "citharus",
-  "akiVersion": ">=3.0.0",
+  "akiVersion": ">=3.1.0",
   "scripts": {
     "build": "tsc --build",
     "clean": "tsc --build --clean"
