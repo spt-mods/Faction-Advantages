@@ -3,6 +3,9 @@ import {ProfileHelper} from "@spt-aki/helpers/ProfileHelper";
 import {DatabaseServer} from "@spt-aki/servers/DatabaseServer";
 import {ITemplateItem} from "@spt-aki/models/eft/common/tables/ITemplateItem";
 
+import weaponsList = require("../database/weapons.json");
+import multipliers = require("../config/weapons.json");
+
 export class Weapons {
     private profileHelper: ProfileHelper;
     private databaseServer: DatabaseServer;
@@ -24,18 +27,15 @@ export class Weapons {
         const playerFaction: string = this.profileHelper.getPmcProfile(sessionID).Info.Side;
         const databaseItems: Record<string, ITemplateItem> = this.databaseServer.getTables().templates.items;
 
-        const weaponsList = require("../database/weapons.json");
-        const multipliers = require("../config/weapons.json").Multipliers;
-
         for (const weapon of weaponsList[playerFaction]) {
             if (databaseItems[weapon] === undefined) {
                 continue
             }
 
-            databaseItems[weapon]._props.RecoilForceUp *= multipliers.VerticalRecoil / 100;
-            databaseItems[weapon]._props.RecoilForceBack *= multipliers.HorizontalRecoil / 100;
+            databaseItems[weapon]._props.RecoilForceUp *= multipliers.VerticalRecoilMultiplier / 100;
+            databaseItems[weapon]._props.RecoilForceBack *= multipliers.HorizontalRecoilMultiplier / 100;
             databaseItems[weapon]._props.Ergonomics = Math.round(
-                databaseItems[weapon]._props.Ergonomics * (multipliers.Ergonomics / 100)
+                databaseItems[weapon]._props.Ergonomics * (multipliers.ErgonomicsMultiplier / 100)
             );
         }
     }
