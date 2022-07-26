@@ -1,16 +1,13 @@
 import {DependencyContainer} from "tsyringe";
-import {ILogger} from "@spt-aki/models/spt/utils/ILogger";
 import {ProfileHelper} from "@spt-aki/helpers/ProfileHelper";
 import {DatabaseServer} from "@spt-aki/servers/DatabaseServer";
 import {ITemplateItem} from "@spt-aki/models/eft/common/tables/ITemplateItem";
 
 export class Weapons {
-    private logger: ILogger;
     private profileHelper: ProfileHelper;
     private databaseServer: DatabaseServer;
 
     constructor(container: DependencyContainer) {
-        this.logger = container.resolve<ILogger>("WinstonLogger");
         this.profileHelper = container.resolve<ProfileHelper>("ProfileHelper");
         this.databaseServer = container.resolve<DatabaseServer>("DatabaseServer");
     }
