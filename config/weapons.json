@@ -1,7 +1,5 @@
 {
-  "Multipliers": {
-    "Ergonomics": 105,
-    "VerticalRecoil": 96,
-    "HorizontalRecoil": 96
-  }
+  "ErgonomicsMultiplier": 105,
+  "VerticalRecoilMultiplier": 96,
+  "HorizontalRecoilMultiplier": 96
 }
