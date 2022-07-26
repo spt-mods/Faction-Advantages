@@ -27,7 +27,7 @@ export class Weapons {
         const weaponsList = require("../database/weapons.json");
         const multipliers = require("../config/weapons.json").Multipliers;
 
-        for (let weapon of weaponsList[playerFaction]) {
+        for (const weapon of weaponsList[playerFaction]) {
             if (databaseItems[weapon] === undefined) {
                 continue
             }
