@@ -28,9 +28,6 @@ export class Weapons {
 
         for (let weapon of weaponsList[playerFaction]) {
             // TODO: Modify weapon stats
-            databaseItems[weapon]._props.Ergonomics = 100;
-            //this.logger.warning(databaseItems[weapon]._props.Ergonomics.toString())
-            //this.logger.warning(databaseItems[weapon]._props.Name)
         }
     }
 }
