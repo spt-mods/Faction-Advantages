@@ -26,8 +26,8 @@ export class Traders {
         const databaseTraders = this.databaseServer.getTables().traders;
 
         for (const trader of factionTraders[playerFaction]) {
-            databaseTraders[trader].base.loyaltyLevels.map(loyaltyLevel => loyaltyLevel.repair_price_coef * Math.round(
-                traderConfig.RepairPriceMultiplier / 100
+            databaseTraders[trader].base.loyaltyLevels.map(loyaltyLevel => loyaltyLevel.repair_price_coef = Math.round(
+                loyaltyLevel.repair_price_coef * traderConfig.RepairPriceMultiplier / 100
             ));
         }
     }
