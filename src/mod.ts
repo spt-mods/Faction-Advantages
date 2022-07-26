@@ -1,14 +1,14 @@
 import {DependencyContainer} from "tsyringe";
-import {IPostAkiLoadMod} from "@spt-aki/models/external/IPostAkiLoadMod";
+import {IPreAkiLoadMod} from "@spt-aki/models/external/IPreAkiLoadMod";
 import {ILogger} from "@spt-aki/models/spt/utils/ILogger";
 import {StaticRouterModService} from "@spt-aki/services/mod/staticRouter/StaticRouterModService";
 
 import {Weapons} from "./weapons";
 
-class Mod implements IPostAkiLoadMod {
+class Mod implements IPreAkiLoadMod {
     private package = require("../package.json");
 
-    postAkiLoad(container: DependencyContainer): void {
+    preAkiLoad(container: DependencyContainer): void {
         const logger = container.resolve<ILogger>("WinstonLogger");
         const staticRouterModService = container.resolve<StaticRouterModService>("StaticRouterModService");
 
