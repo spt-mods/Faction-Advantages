@@ -4,6 +4,7 @@ import {ILogger} from "@spt-aki/models/spt/utils/ILogger";
 import {StaticRouterModService} from "@spt-aki/services/mod/staticRouter/StaticRouterModService";
 
 import {Weapons} from "./weapons";
+import {Traders} from "./traders";
 
 class Mod implements IPreAkiLoadMod {
     private package = require("../package.json");
@@ -20,6 +21,7 @@ class Mod implements IPreAkiLoadMod {
                 url: "/client/game/start",
                 action: (url: string, info: any, sessionID: string, output: string) => {
                     new Weapons(container).updateWeaponStatsForFaction(sessionID);
+                    new Traders(container).updateRepairPriceForFactionTraders(sessionID);
                     return output;
                 }
             }],
