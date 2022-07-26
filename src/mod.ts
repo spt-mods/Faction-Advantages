@@ -16,7 +16,7 @@ class Mod implements IPreAkiLoadMod {
         logger.info(`Loading: ${this.package.displayName}`);
 
         staticRouterModService.registerStaticRouter(
-            "StaticRouteUpdateWeaponStatsForFaction",
+            "StaticRouteFactionAdvantages",
             [{
                 url: "/client/game/start",
                 action: (url: string, info: any, sessionID: string, output: string) => {
