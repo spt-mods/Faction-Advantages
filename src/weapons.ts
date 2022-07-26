@@ -16,7 +16,7 @@ export class Weapons {
      * Update all weapons stats from the player's faction with modifiers from the weapons config.
      * @param sessionID The profile ID of the logged in player.
      */
-    updateWeaponStatsForFaction(sessionID: string) {
+    updateWeaponStatsForFaction(sessionID: string): void {
         if (this.profileHelper.getPmcProfile(sessionID).Info === undefined) {
             return;
         }
