@@ -16,18 +16,30 @@ export class Weapons {
     }
 
     /**
-     * Update all weapons stats according to the player's faction with modifiers from the weapons config.
-     * When the player is in the Usec faction all Usec related weapons get a stat boost and
-     * all Bear related weapons get a stat buff.
+     * Update all weapons stats from the player's faction with modifiers from the weapons config.
      * @param sessionID The profile ID of the logged in player.
      */
     updateWeaponStatsForFaction(sessionID: string) {
-        const weaponsList = require("../database/weapons.json");
+        if (this.profileHelper.getPmcProfile(sessionID).Info === undefined) {
+            return;
+        }
+
         const playerFaction: string = this.profileHelper.getPmcProfile(sessionID).Info.Side;
         const databaseItems: Record<string, ITemplateItem> = this.databaseServer.getTables().templates.items;
 
+        const weaponsList = require("../database/weapons.json");
+        const multipliers = require("../config/weapons.json").Multipliers;
+
         for (let weapon of weaponsList[playerFaction]) {
-            // TODO: Modify weapon stats
+            if (databaseItems[weapon] === undefined) {
+                continue
+            }
+
+            databaseItems[weapon]._props.RecoilForceUp *= multipliers.VerticalRecoil / 100;
+            databaseItems[weapon]._props.RecoilForceBack *= multipliers.HorizontalRecoil / 100;
+            databaseItems[weapon]._props.Ergonomics = Math.round(
+                databaseItems[weapon]._props.Ergonomics * (multipliers.Ergonomics / 100)
+            );
         }
     }
 }
