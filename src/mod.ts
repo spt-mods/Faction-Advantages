@@ -8,13 +8,11 @@ import {Weapons} from "./weapons";
 import {Traders} from "./traders";
 
 class Mod implements IPreAkiLoadMod {
-    private profileHelper: ProfileHelper;
     private package = require("../package.json");
 
     preAkiLoad(container: DependencyContainer): void {
         const logger = container.resolve<ILogger>("WinstonLogger");
         const staticRouterModService = container.resolve<StaticRouterModService>("StaticRouterModService");
-        const profileHelper = container.resolve<ProfileHelper>("ProfileHelper");
 
         logger.info(`Loading: ${this.package.displayName}`);
 
@@ -23,16 +21,24 @@ class Mod implements IPreAkiLoadMod {
             [{
                 url: "/client/game/start",
                 action: (url: string, info: any, sessionID: string, output: string) => {
-                    if (profileHelper.getPmcProfile(sessionID).Info === undefined) {
-                        return;
-                    }
-                    new Weapons(container).updateWeaponStatsForFaction(sessionID);
-                    new Traders(container).updateRepairPriceForFactionTraders(sessionID);
+                    this.loadOnGameStart(container, sessionID);
                     return output;
                 }
             }],
             "aki"
         );
+    }
+
+    loadOnGameStart(container: DependencyContainer, sessionID: string) {
+        const profileHelper = container.resolve<ProfileHelper>("ProfileHelper");
+
+        if (profileHelper.getPmcProfile(sessionID).Info === undefined) {
+            return;
+        }
+
+        new Weapons(container).updateWeaponStatsForFaction(sessionID);
+        new Traders(container).updateRepairPriceForFactionTraders(sessionID);
+        new Traders(container).setTraderDiscountForFactionTraders(sessionID);
     }
 }
 
