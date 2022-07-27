@@ -31,4 +31,18 @@ export class Traders {
             ));
         }
     }
+
+    /**
+     * Applies the discount from the trader config to the trader Assort.
+     * @param assort The Assort of the trader.
+     */
+    applyDiscountToTraderAssort(assort: ITraderAssort) {
+        for (const schemeID in assort.barter_scheme) {
+            const scheme = assort.barter_scheme[schemeID][0];
+            if (scheme.length === 1 && this.paymentHelper.isMoneyTpl(scheme[0]._tpl)) {
+                const price = Math.round(scheme[0].count * (100 - traderConfig.TraderDiscount) / 100)
+                scheme[0].count = price >= 1 ? price : 1;
+            }
+        }
+    }
 }
