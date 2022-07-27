@@ -20,10 +20,6 @@ export class Weapons {
      * @param sessionID The profile ID of the logged in player.
      */
     updateWeaponStatsForFaction(sessionID: string): void {
-        if (this.profileHelper.getPmcProfile(sessionID).Info === undefined) {
-            return;
-        }
-
         const playerFaction: string = this.profileHelper.getPmcProfile(sessionID).Info.Side;
         const databaseItems: Record<string, ITemplateItem> = this.databaseServer.getTables().templates.items;
 
