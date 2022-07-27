@@ -7,8 +7,10 @@
   "author": "citharus",
   "akiVersion": ">=3.1.0",
   "scripts": {
-    "build": "tsc --build",
-    "clean": "tsc --build --clean"
+    "build:dist": "tsc --build && mkdirp dist/faction-advantages && copyfiles src/*.js config/* database/* package.json LICENSE dist/faction-advantages",
+    "build:zip": "mkdirp build && cd dist/ && bestzip --level 9 ../build/faction-advantages.zip *",
+    "build:clean": "tsc --build --clean && rd /s /q build dist",
+    "build:release": "npm run build:dist && npm run build:zip"
   },
   "devDependencies": {
     "@types/node": "^14.15.3",
