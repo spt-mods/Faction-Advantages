@@ -6,6 +6,7 @@ import {ProfileHelper} from "@spt-aki/helpers/ProfileHelper";
 
 import {Weapons} from "./weapons";
 import {Traders} from "./traders";
+import {Bots} from "./bots";
 
 class Mod implements IPreAkiLoadMod {
     private package = require("../package.json");
@@ -39,6 +40,7 @@ class Mod implements IPreAkiLoadMod {
         new Weapons(container).updateWeaponStatsForFaction(sessionID);
         new Traders(container).updateRepairPriceForFactionTraders(sessionID);
         new Traders(container).setTraderDiscountForFactionTraders(sessionID);
+        new Bots(container).setSameFactionHostileChance();
     }
 }
 
