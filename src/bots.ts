@@ -10,7 +10,10 @@ export class Bots {
     constructor(container: DependencyContainer) {
         this.configServer = container.resolve<ConfigServer>("ConfigServer");
     }
-    
+
+    /**
+     * Set the hostility chance of bots of the same faction to the value specified in the bots config.
+     */
     setSameFactionHostileChance() {
         const pmcBotConfig = this.configServer.getConfigByString<IBotConfig>("aki-bot").pmc;
         pmcBotConfig.chanceSameSideIsHostilePercent = botConfig.SameFactionHostileChance;
